@@ -1,0 +1,57 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    int *pa, x = 5;
+    pa = &x;
+    printf("--- Код из задания ---\n");
+    printf("По адресу %p хранится *pa = %d\n", (void *)pa, *pa);
+    pa++;
+    printf("После pa++ адрес %p (смещение, байт: %lld)\n",
+           (void *)pa, (long long)((char *)pa - (char *)&x));
+    printf("По адресу %p хранится *pa = %d (значение не определено)\n", (void *)pa, *pa);
+    pa--;
+    printf("После pa-- адрес %p, *pa = %d\n", (void *)pa, *pa);
+    printf("\n--- На сколько байт смещается указатель после ++ ---\n");
+    printf("Тип                  sizeof     Смещение, байт\n");
+    printf("------------------------------------------------\n");
+
+    char c = 'A';
+    char *pc = &c;
+
+    short s = 1;
+    short *ps = &s;
+
+    unsigned short us = 1;
+    unsigned short *pus = &us;
+
+    int i = 1;
+    int *pi = &i;
+
+    _Bool b = 1;
+    _Bool *pb = &b;
+
+    double d = 1.0;
+    double *pd = &d;
+
+    long double ld = 1.0L;
+    long double *pld = &ld;
+
+    printf("%-20s %-10zu %lld\n", "char", sizeof(char),
+           (long long)((char *)(pc + 1) - (char *)pc));
+    printf("%-20s %-10zu %lld\n", "short int", sizeof(short),
+           (long long)((char *)(ps + 1) - (char *)ps));
+    printf("%-20s %-10zu %lld\n", "unsigned short int", sizeof(unsigned short),
+           (long long)((char *)(pus + 1) - (char *)pus));
+    printf("%-20s %-10zu %lld\n", "int", sizeof(int),
+           (long long)((char *)(pi + 1) - (char *)pi));
+    printf("%-20s %-10zu %lld\n", "_Bool", sizeof(_Bool),
+           (long long)((char *)(pb + 1) - (char *)pb));
+    printf("%-20s %-10zu %lld\n", "double", sizeof(double),
+           (long long)((char *)(pd + 1) - (char *)pd));
+    printf("%-20s %-10zu %lld\n", "long double", sizeof(long double),
+           (long long)((char *)(pld + 1) - (char *)pld));
+    return 0;
+}
