@@ -1,0 +1,18 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+int main() {
+    setlocale(LC_ALL, "Russian");
+    float PI = 3.14159f, *p1, *p2;
+    p1 = p2 = &PI;                                                 // операция присваивания справа налево
+
+    printf("Адрес переменной PI: %p\n\n", (void *)&PI);
+    printf("По адресу p1=%p хранится *p1=%g\n", (void *)p1, *p1);
+    printf("По адресу p2=%p хранится *p2=%g\n", (void *)p2, *p2);
+    printf("\np1 == p2 ? %s\n", (p1 == p2) ? "да" : "нет");
+
+    *p2 = 3.0f;
+    printf("\nПосле *p2 = 3.0f: PI = %g, *p1 = %g\n", PI, *p1);
+    printf("Адрес в hex: %#llx\n", (unsigned long long)(size_t)p1);   //шестнадцатеричная
+    return 0;
+}
