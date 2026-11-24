@@ -1,0 +1,62 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+
+void print_bytes(const void *ptr, size_t size) {
+    const unsigned char *p = (const unsigned char *)ptr;
+    size_t i;
+    for (i = 0; i < size; i++) {
+        printf("%.2x ", (unsigned int)p[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    printf("--- Побайтовый вывод целого числа (листинг из задания) ---\n");
+    int x = 0x12345678;              // переменная шестнадцатеричная
+    int *prt;                        // указатель для переменной
+    unsigned char *a1, *a2, *a3, *a4;
+    unsigned char *a;                // указатель на байт
+    prt = &x;                        // получение адреса переменной
+    a = (unsigned char *)prt;        // преобразование на один байт
+    a1 = a + 3;                      // получение 4-го байта числа x
+    a2 = a + 2;
+    a3 = a + 1;
+    a4 = a;                          // получение 1-го байта числа x
+
+    printf("Байты от старшего адреса к младшему: %.2x %.2x %.2x %.2x\n",
+           (unsigned int)*a1, (unsigned int)*a2, (unsigned int)*a3, (unsigned int)*a4);
+    printf("Байты по возрастанию адреса:         ");
+    print_bytes(&x, sizeof(x));
+
+    if (a[0] == 0x78) {
+        printf("Порядок байтов: little-endian (младший байт по младшему адресу).\n");
+    } 
+    else {
+        printf("Порядок байтов: big-endian (старший байт по младшему адресу).\n");
+    }
+
+    printf("\n--- 2. Побайтовый вывод переменных разных типов ---\n");
+    char c = 'A';
+    short sh = 0x1234;
+    int i = 0x12345678;
+    float f = 1.5f;
+    double d = 1.5;
+
+    printf("%-7s %-13s: ", "char", "('A')");        print_bytes(&c, sizeof(c));
+    printf("%-7s %-13s: ", "short", "(0x1234)");     print_bytes(&sh, sizeof(sh));
+    printf("%-7s %-13s: ", "int", "(0x12345678)");   print_bytes(&i, sizeof(i));
+    printf("%-7s %-13s: ", "float", "(1.5)");        print_bytes(&f, sizeof(f));
+    printf("%-7s %-13s: ", "double", "(1.5)");       print_bytes(&d, sizeof(d));
+    printf("\n--- 3. Число 12345.0 в переменных разного типа ---\n");
+
+    int    vi = 12345;
+    float  vf = 12345.0f;
+    double vd = 12345.0;
+
+    printf("%-7s %-9d: ", "int", vi);              print_bytes(&vi, sizeof(vi));
+    printf("%-7s %-9.1f: ", "float", (double)vf);  print_bytes(&vf, sizeof(vf));
+    printf("%-7s %-9.1f: ", "double", vd);          print_bytes(&vd, sizeof(vd));
+    return 0;
+}
