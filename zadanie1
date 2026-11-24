@@ -1,0 +1,73 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+#include <stddef.h>   /* size_t  */
+#include <wchar.h>    /* wchar_t */
+
+long long size_of_char(void) {
+    char m[2];
+    return (long long)((char *)&m[1] - (char *)&m[0]);
+}
+long long size_of_short(void) {
+    short int m[2];
+    return (long long)((char *)&m[1] - (char *)&m[0]);
+}
+long long size_of_unsigned_short(void) {
+    unsigned short int m[2];
+    return (long long)((char *)&m[1] - (char *)&m[0]);
+}
+long long size_of_int(void) {
+    int m[2];
+    return (long long)((char *)&m[1] - (char *)&m[0]);
+}
+long long size_of_unsigned_char(void) {
+    unsigned char m[2];
+    return (long long)((char *)&m[1] - (char *)&m[0]);
+}
+long long size_of_wchar(void) {
+    wchar_t m[2];
+    return (long long)((char *)&m[1] - (char *)&m[0]);
+}
+long long size_of_long_long(void) {
+    long long int m[2];
+    return (long long)((char *)&m[1] - (char *)&m[0]);
+}
+long long size_of_size_t(void) {
+    size_t m[2];
+    return (long long)((char *)&m[1] - (char *)&m[0]);
+}
+long long size_of_float(void) {
+    float m[2];
+    return (long long)((char *)&m[1] - (char *)&m[0]);
+}
+long long size_of_double(void) {
+    double m[2];
+    return (long long)((char *)&m[1] - (char *)&m[0]);
+}
+long long size_of_signed_int(void) {
+    signed int m[2];
+    return (long long)((char *)&m[1] - (char *)&m[0]);
+}
+long long size_of_long_double(void) {
+    long double m[2];
+    return (long long)((char *)&m[1] - (char *)&m[0]);
+}
+int main() {
+    setlocale(LC_ALL, "Russian");
+    printf("Размеры основных типов данных (без sizeof)\n\n");
+    printf("№    Тип                  Размер, байт\n");
+    printf("--------------------------------------\n");
+    printf("%-4d %-20s %lld\n", 1, "char", size_of_char());
+    printf("%-4d %-20s %lld\n", 2, "short int", size_of_short());
+    printf("%-4d %-20s %lld\n", 3, "unsigned short int", size_of_unsigned_short());
+    printf("%-4d %-20s %lld\n", 4, "int", size_of_int());
+    printf("%-4d %-20s %lld\n", 5, "unsigned char", size_of_unsigned_char());
+    printf("%-4d %-20s %lld\n", 6, "wchar_t", size_of_wchar());
+    printf("%-4d %-20s %lld\n", 7, "long long int", size_of_long_long());
+    printf("%-4d %-20s %lld\n", 8, "size_t", size_of_size_t());
+    printf("%-4d %-20s %lld\n", 9, "float", size_of_float());
+    printf("%-4d %-20s %lld\n", 10, "double", size_of_double());
+    printf("%-4d %-20s %lld\n", 11, "signed int", size_of_signed_int());
+    printf("%-4d %-20s %lld\n", 12, "long double", size_of_long_double());
+    return 0;
+}
